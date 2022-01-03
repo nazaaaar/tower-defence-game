@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWalking : MonoBehaviour
+public class EnemyWalking : MonoBehaviour
 {
     public List<Transform> pointsTransform;
     public float speed = 2;

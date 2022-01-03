@@ -6,6 +6,7 @@ public class CannonAttack : MonoBehaviour
 {
     private QueueSystem queue;
     private Transform cannonBase;
+    public Rigidbody shell;
     void Start()
     {
         cannonBase = gameObject.GetComponentInChildren<Transform>();
