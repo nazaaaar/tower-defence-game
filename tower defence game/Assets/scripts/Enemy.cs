@@ -29,7 +29,6 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        QueueSystem.Remove();
         Destroy(gameObject);
     }
 }

@@ -20,19 +20,13 @@ public class CannonAttack : MonoBehaviour
         queue = gameObject.GetComponentInParent<QueueSystem>();
         transform.parent = null;
     }
-    
-    void Update()
-    {
-        target = queue.GetTarget();
-        Targeting();
-        
-    }
-
 
     public float recharge = 5;
 
-    private void FixedUpdate()
+    private void Update()
     {
+        target = queue.GetTarget();
+        Targeting();
 
         if (canAttack & isTimerReady())
         {
@@ -51,7 +45,7 @@ public class CannonAttack : MonoBehaviour
 
 
             float changeY = transform.rotation.eulerAngles.y - newDirection.eulerAngles.y;
-            if (changeY < 1 && changeY >= 0) canAttack = true;
+            if (changeY < 1 && changeY > -1) canAttack = true;
             else canAttack = false;
 
             transform.rotation = newDirection;
@@ -63,7 +57,9 @@ public class CannonAttack : MonoBehaviour
     
     private void Atack()
     {
-        Instantiate(shell,shellSpawn.position, Quaternion.identity).enemy = queue.GetEnemy();
+        Shell a = Instantiate(shell, shellSpawn.position, Quaternion.identity);
+        a.enemy = queue.GetEnemy();
+        a.damage = damage;
     }
 
     
@@ -72,7 +68,7 @@ public class CannonAttack : MonoBehaviour
     {
         if (timer > 0)
         {
-            timer -= Time.fixedDeltaTime;
+            timer -= Time.deltaTime;
             return false;
         }
         else return true;   

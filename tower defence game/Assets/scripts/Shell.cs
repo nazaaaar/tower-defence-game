@@ -5,6 +5,7 @@ using UnityEngine;
 public class Shell : MonoBehaviour
 {
     public Enemy enemy;
+    public float damage;
     private Vector3 direction;
     private float speed = 20;
     private Rigidbody rb;
@@ -18,15 +19,17 @@ public class Shell : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy") enemy.GetDamage(50);
+        if (other.tag == "Enemy") enemy.GetDamage(damage);
         Destroy(gameObject);
     }
     void FixedUpdate()
     {
-        Vector3 heading = enemy.transform.position - transform.position - new Vector3 (0,0.5f);
-        float distance = heading.magnitude;
-        direction = heading / distance;
-
+        if (enemy)
+        {
+            Vector3 heading = enemy.transform.position - transform.position - new Vector3(0, 0.5f);
+            float distance = heading.magnitude;
+            direction = heading / distance;
+        }
         rb.velocity = direction * speed;
     }
 }
