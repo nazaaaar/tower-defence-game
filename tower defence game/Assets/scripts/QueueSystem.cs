@@ -4,24 +4,29 @@ using UnityEngine;
 
 public class QueueSystem : MonoBehaviour
 {
-    private List<Transform> queue = new List<Transform>();
+    private static List<Transform> queue = new List<Transform>();
 
-    void OnTriggerEnter(Collider enemy)
+    void OnTriggerEnter(Collider collider)
     {
-        queue.Add(enemy.transform);
+        if (collider.tag == "Enemy") queue.Add(collider.transform);
     }
-    void OnTriggerExit(Collider enemy)
+    void OnTriggerExit(Collider collider)
     {
-        queue.Remove(enemy.transform);
+        if (collider.tag == "Enemy") queue.Remove(collider.transform);
     }
 
-    private void Update()
-    { 
-    }
     public Vector3 GetTarget()
     {
         if (queue.Count != 0) return queue[0].position;
         return Vector3.zero;
-        
+    }
+
+    public Enemy GetEnemy()
+    {
+        return queue[0].GetComponent<Enemy>();
+    }
+    public static void Remove()
+    {
+        queue.RemoveAt(0);
     }
 }

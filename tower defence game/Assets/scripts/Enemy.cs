@@ -19,11 +19,6 @@ public class Enemy : MonoBehaviour
         maxHealth = health;
     }
 
-    private void FixedUpdate()
-    {
-        GetDamage(.1f);
-    }
-
     public void GetDamage(float damage)
     {
         health -= damage;
@@ -34,6 +29,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        QueueSystem.Remove();
         Destroy(gameObject);
     }
 }
